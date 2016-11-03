@@ -103,7 +103,7 @@ zplug load --verbose
 
 ### PATH ###
 PATH=/usr/local/bin:$PATH
-
+HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 ### Alias ###
 alias cl='clear'
