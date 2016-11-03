@@ -1,0 +1,12 @@
+[user]
+  name  = SpicyCoffee
+  email = 7toidrdr.6400@gmail.com
+
+[alias]
+  st = status
+  co = checkout
+  cm = commit
+  df = diff
+  dfw = git diff --color-words --word-diff-regex='\\w+|[^[:space:]]'
+  gr = log --graph --oneline --decorate=full
+
