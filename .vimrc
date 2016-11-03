@@ -107,10 +107,28 @@ call neobundle#begin(expand('~/.vim/bundle/'))
   endif
   syntax enable
 
-  " snippet
-  " NeoBundle 'Shougo/neocomplcache'
-  " NeoBundle 'Shougo/neosnippet'
-  " NeoBundle 'Shougo/neosnippet-snippets'
+  " snippet(require lua)
+  if has('lua')
+    NeoBundle 'Shougo/neocomplete.vim'
+    NeoBundle "Shougo/neosnippet"
+    NeoBundle 'Shougo/neosnippet-snippets'
+  endif
+
+  if neobundle#is_installed('neocomplete.vim')
+    let g:neocomplete#enable_at_startup = 1  " activate neocomplete with start-up
+    let g:neocomplete#enable_smart_case = 1
+    let g:neocomplete#min_keyword_length = 3
+    let g:neocomplete#enable_auto_delimiter = 1  " complete delimiter
+    let g:neocomplete#auto_completion_start_length = 1  " display popup from 1 length
+    " close popup by BackSpace key
+    inoremap <expr><BS> neocomplete#smart_close_popup()."<C-h>"
+
+    " decide word by Carriage Return key
+    imap <expr><CR> neosnippet#expandable() ? "<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "<C-y>" : "<CR>"
+    " choice words by TAB key
+    imap <expr><TAB> pumvisible() ? "<C-n>" : neosnippet#jumpable() ? "<Plug>(neosnippet_expand_or_jump)" : "<TAB>"
+  endif
+
   " support for html
   NeoBundle 'mattn/emmet-vim'
 
