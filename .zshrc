@@ -7,6 +7,12 @@ setopt share_history     # share histories between other shells
 setopt hist_reduce_blanks  # delete blanks when saving hisotries
 
 
+### Completion ###
+zstyle ':completion:*:default' menu select=1
+zstyle ':completion:*' list-colors "${LS_COLORS}"
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+
 ### Prompt ###
 autoload -U colors; colors
 setopt prompt_subst
