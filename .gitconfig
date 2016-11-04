@@ -4,6 +4,7 @@
 
 [alias]
   st = status
+  br = branch
   co = checkout
   cm = commit
   df = diff
