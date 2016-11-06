@@ -8,6 +8,6 @@
   co = checkout
   cm = commit
   df = diff
-  dfw = git diff --color-words --word-diff-regex='\\w+|[^[:space:]]'
+  dfw = diff --color-words --word-diff-regex='\\w+|[^[:space:]]'
   gr = log --graph --oneline --decorate=full
 
