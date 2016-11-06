@@ -78,6 +78,8 @@ nnoremap ss :<C-u>sp<CR>
 nnoremap sv :<C-u>vs<CR>
 " for US keyboard
 nnoremap ; :
+noremap! ¥ \
+noremap! \ ¥
 
 
 " minor change for colorscheme
