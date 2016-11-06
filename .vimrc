@@ -80,6 +80,12 @@ nnoremap sv :<C-u>vs<CR>
 nnoremap ; :
 
 
+" minor change for colorscheme
+autocmd VimEnter,Colorscheme * hi Visual ctermfg=0 guifg=Black ctermbg=11 guibg=Yellow
+autocmd VimEnter,Colorscheme * hi VisualNos ctermfg=0 guifg=Black ctermbg=11 guibg=Yellow
+autocmd VimEnter,Colorscheme * hi Search ctermfg=0 guifg=Black ctermbg=11 guibg=Yellow
+
+
 """"" NeoBundle
 if has('vim_starting')  " operations for first time start-up
   " add neobundle path to runtimepath
