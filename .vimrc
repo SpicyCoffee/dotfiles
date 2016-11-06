@@ -145,11 +145,8 @@ call neobundle#begin(expand('~/.vim/bundle/'))
   set showcmd
   set ruler   " display cursor position
 
-  " hilight balanks at line end
+  " hilight blanks at line end
   NeoBundle 'bronson/vim-trailing-whitespace'
-
-  " visualize indent
-  NeoBundle 'Yggdroot/indentLine'
 
   " display file tree
   NeoBundle 'scrooloose/nerdtree'
