@@ -109,6 +109,7 @@ zplug load --verbose
 
 ### PATH ###
 PATH=/usr/local/bin:$PATH
+PATH=$HOME/.nodebrew/current/bin:$PATH
 HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 
