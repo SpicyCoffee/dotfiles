@@ -111,6 +111,7 @@ zplug load --verbose
 PATH=/usr/local/bin:$PATH
 HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
+
 ### Alias ###
 alias cl='clear'
 alias be='bundle exec'

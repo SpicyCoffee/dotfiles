@@ -138,6 +138,7 @@ call neobundle#begin(expand('~/.vim/bundle/'))
   endif
 
   " support for html
+  let g:user_emmet_leader_key='<C-T>'
   NeoBundle 'mattn/emmet-vim'
 
   " enhance status line information
