@@ -90,11 +90,21 @@ function get-branch-status {
 export ZPLUG_HOME=/usr/local/opt/zplug
 source $ZPLUG_HOME/init.zsh
 
-# Define plugins
-zplug "b4b4r07/enhancd", use:init.sh  # enhance moving on CL
-zplug "zsh-users/zsh-autosuggestions"  # suggest commands
-zplug "zsh-users/zsh-syntax-highlighting", nice:10  # syntax hilight
-zplug "zsh-users/zsh-completions"  # completion of command input
+### Define plugins
+  zplug "b4b4r07/enhancd", use:init.sh  # enhance moving on CL
+  zplug "zsh-users/zsh-autosuggestions"  # suggest commands
+  zplug "zsh-users/zsh-syntax-highlighting", nice:10  # syntax hilight
+  zplug "zsh-users/zsh-completions"  # completion of command input
+
+  # emoji
+  zplug "stedolan/jq", \
+    from:gh-r, \
+    as:command, \
+    rename-to:jq
+  zplug "b4b4r07/emoji-cli", \
+      on:"stedolan/jq"
+  zplug "mrowa44/emojify"
+###
 
 # Install them
 if ! zplug check --verbose; then
