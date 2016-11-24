@@ -1,3 +1,6 @@
+[core]
+  editor = vim
+
 [user]
   name  = SpicyCoffee
   email = 7toidrdr.6400@gmail.com
