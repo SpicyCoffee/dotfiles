@@ -56,12 +56,15 @@ if &term =~ "xterm"
   let &t_EI .= "\e[?2004l"
   let &pastetoggle = "\e[201~"
 
-  function XTermPasteBegin(ret)
+  function! XTermPasteBegin(ret)
     set paste
     return a:ret
   endfunction
 
+  noremap <special> <expr> <Esc>[200~ XTermPasteBegin("0i")
   inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")
+  cnoremap <special> <Esc>[200~ <nop>
+  cnoremap <special> <Esc>[201~ <nop>
 endif
 
 " key mapping
@@ -175,6 +178,11 @@ call neobundle#begin(expand('~/.vim/bundle/'))
   NeoBundle 'hail2u/vim-css3-syntax'
   NeoBundle 'slim-template/vim-slim'
   autocmd BufRead,BufNewFile *.slim setfiletype slim
+
+  " emoji
+  NeoBundle 'junegunn/vim-emoji'
+  NeoBundle 'rhysd/github-complete.vim'
+  set omnifunc=github_complete#complete
   "----------------------------------------------------------
   call neobundle#end()
 
