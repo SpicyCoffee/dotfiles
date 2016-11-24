@@ -173,6 +173,8 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 
   " additional syntax hilights
   NeoBundle 'hail2u/vim-css3-syntax'
+  NeoBundle 'slim-template/vim-slim'
+  autocmd BufRead,BufNewFile *.slim setfiletype slim
   "----------------------------------------------------------
   call neobundle#end()
 
