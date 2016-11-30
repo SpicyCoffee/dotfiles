@@ -1,0 +1,6 @@
+# display commit id on left side in main view
+set main-view = id date author commit-title:graph=yes,refs=yes
+
+# split window
+set vertical-split = no
+set split-view-height = 80%
