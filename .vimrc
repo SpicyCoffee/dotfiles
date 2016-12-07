@@ -92,103 +92,38 @@ autocmd VimEnter,Colorscheme * hi VisualNos ctermfg=0 guifg=Black ctermbg=11 gui
 autocmd VimEnter,Colorscheme * hi Search ctermfg=0 guifg=Black ctermbg=11 guibg=Yellow
 
 
-""""" NeoBundle
-if has('vim_starting')  " operations for first time start-up
-  " add neobundle path to runtimepath
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
-
-  " git clone NeoBundle
-  if !isdirectory(expand("~/.vim/bundle/neobundle.vim/"))
-    echo "install NeoBundle..."
-    :call system("git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim")
+""""" Dein
+let s:dein_dir = expand('~/.vim/dein')  " directory to install plugins
+" install dein.vim
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+if &runtimepath !~# '/dein.vim'
+  if !isdirectory(s:dein_repo_dir)
+    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
   endif
+  execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
 endif
 
-call neobundle#begin(expand('~/.vim/bundle/'))
-  " Manage NeoBundle itself
-  NeoBundleFetch 'Shougo/neobundle.vim'
+" config start
+if dein#load_state(s:dein_dir)
+  call dein#begin(s:dein_dir)
 
-  " Plugins--------------------------------------------------
-  NeoBundle 'tomtom/tcomment_vim'  " toggle comments
+  " plugin lists(TOML files)
+  let g:rc_dir    = expand('~/dotfiles/deinrc')
+  let s:toml      = g:rc_dir . '/dein.toml'
+  let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
 
-  " color scheme hybrid
-  NeoBundle 'w0ng/vim-hybrid'
-  if neobundle#is_installed('hybrid')
-    set background=dark
-    colorscheme hybrid
-  endif
-  syntax enable
+  " load TOML files
+  call dein#load_toml(s:toml,      {'lazy': 0})
+  call dein#load_toml(s:lazy_toml, {'lazy': 1})
 
-  " snippet(require lua)
-  if has('lua')
-    NeoBundle 'Shougo/neocomplete.vim'
-    NeoBundle "Shougo/neosnippet"
-    NeoBundle 'Shougo/neosnippet-snippets'
-  endif
+  call dein#end()
+  call dein#save_state()
+endif
 
-  if neobundle#is_installed('neocomplete.vim')
-    let g:neocomplete#enable_at_startup = 1  " activate neocomplete with start-up
-    let g:neocomplete#enable_smart_case = 1
-    let g:neocomplete#min_keyword_length = 3
-    let g:neocomplete#enable_auto_delimiter = 1  " complete delimiter
-    let g:neocomplete#auto_completion_start_length = 1  " display popup from 1 length
-    " close popup by BackSpace key
-    inoremap <expr><BS> neocomplete#smart_close_popup()."<C-h>"
-
-    " decide word by Carriage Return key
-    imap <expr><CR> neosnippet#expandable() ? "<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "<C-y>" : "<CR>"
-    " choice words by TAB key
-    imap <expr><TAB> pumvisible() ? "<C-n>" : neosnippet#jumpable() ? "<Plug>(neosnippet_expand_or_jump)" : "<TAB>"
-  endif
-
-  " support for html
-  let g:user_emmet_leader_key='<C-T>'
-  NeoBundle 'mattn/emmet-vim'
-
-  " enhance status line information
-  NeoBundle 'itchyny/lightline.vim'
-  set laststatus=2  " always display status line
-  set showmode
-  set showcmd
-  set ruler   " display cursor position
-
-  " hilight blanks at line end
-  NeoBundle 'bronson/vim-trailing-whitespace'
-
-  " display file tree
-  NeoBundle 'scrooloose/nerdtree'
-  nnoremap <silent><C-e> :NERDTreeToggle<CR>
-
-  " check syntax
-  NeoBundle 'scrooloose/syntastic'
-  " cyntastic config
-  let g:syntastic_enable_signs = 1  " display '>>' error line
-  let g:syntastic_always_populate_loc_list = 1  " stop conflict with other plugins
-  let g:syntastic_auto_loc_list = 0  " hide error list
-  let g:syntastic_check_on_open = 1  " check syntax when a file is opend
-  let g:syntastic_check_on_wq = 1    " check syntax when ':wq'
-  let g:syntastic_mode_map = { 'mode': 'passive' }
-
-  " operation about surrounding symbol
-  NeoBundle 'tpope/vim-surround'
-
-  " commands for Rails
-  NeoBundle 'tpope/vim-rails'
-
-  " additional syntax hilights
-  NeoBundle 'hail2u/vim-css3-syntax'
-  NeoBundle 'slim-template/vim-slim'
-  autocmd BufRead,BufNewFile *.slim setfiletype slim
-
-  " emoji
-  NeoBundle 'junegunn/vim-emoji'
-  NeoBundle 'rhysd/github-complete.vim'
-  set omnifunc=github_complete#complete
-  "----------------------------------------------------------
-  call neobundle#end()
-
-filetype plugin indent on
-NeoBundleCheck
+" install not installed plugins
+if dein#check_install()
+  call dein#install()
+endif
 
 
 """"" Tab function config

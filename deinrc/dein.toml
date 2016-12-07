@@ -1,0 +1,111 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+# toggle comments
+[[plugins]]
+repo = 'tomtom/tcomment_vim'
+
+# color scheme 'hybrid'
+[[plugins]]
+repo = 'w0ng/vim-hybrid'
+hook_add = '''
+  set background=dark
+  colorscheme hybrid
+  syntax enable
+'''
+
+# snippet
+[[plugins]]
+repo = 'Shougo/neosnippet'
+depends = ['neosnippet-snippets']
+if = 'has("lua")'
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+if = 'has("lua")'
+
+[[plugins]]
+repo = 'Shougo/neocomplete'
+if = 'has("lua")'
+hook_add = '''
+  let g:neocomplete#enable_at_startup = 1  " activate neocomplete with start-up
+  let g:neocomplete#enable_smart_case = 1
+  let g:neocomplete#min_keyword_length = 3
+  let g:neocomplete#enable_auto_delimiter = 1  " complete delimiter
+  let g:neocomplete#auto_completion_start_length = 1  " display popup from 1 length
+  " close popup by BackSpace key
+  inoremap <expr><BS> neocomplete#smart_close_popup()."<C-h>"
+
+  " decide word by Carriage Return key
+  imap <expr><CR> neosnippet#expandable() ? "<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "<C-y>" : "<CR>"
+  " choice words by TAB key
+  imap <expr><TAB> pumvisible() ? "<C-n>" : neosnippet#jumpable() ? "<Plug>(neosnippet_expand_or_jump)" : "<TAB>"
+'''
+
+# support for html
+[[plugins]]
+repo = 'mattn/emmet-vim'
+hook_add = '''
+  let g:user_emmet_leader_key='<C-T>'
+'''
+
+
+# enhance status line information
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+hook_add = '''
+  set laststatus=2  " always display status line
+  set showmode
+  set showcmd
+  set ruler   " display cursor position
+'''
+
+# hilight blanks at line end
+[[plugins]]
+repo = 'bronson/vim-trailing-whitespace'
+
+# display file tree
+repo = 'scrooloose/nerdtree'
+hook_add = '''
+  nnoremap <silent><C-e> :NERDTreeToggle<CR>
+'''
+
+# check syntax
+[[plugins]]
+repo = 'scrooloose/syntastic'
+hook_add = '''
+  let g:syntastic_enable_signs = 1  " display '>>' error line
+  let g:syntastic_always_populate_loc_list = 1  " stop conflict with other plugins
+  let g:syntastic_auto_loc_list = 0  " hide error list
+  let g:syntastic_check_on_open = 1  " check syntax when a file is opend
+  let g:syntastic_check_on_wq = 1    " check syntax when ':wq'
+  let g:syntastic_mode_map = { 'mode': 'passive' }
+'''
+
+# operation about surrounding symbol
+[[plugins]]
+repo = 'tpope/vim-surround'
+
+# commands for Rails
+[[plugins]]
+repo = 'tpope/vim-rails'
+
+# additional syntax hilights
+[[plugins]]
+repo = 'hail2u/vim-css3-syntax'
+
+[[plugins]]
+repo = 'slim-template/vim-slim'
+hook_add = '''
+  autocmd BufRead,BufNewFile *.slim setfiletype slim
+'''
+
+# emoji
+[[plugins]]
+repo ='junegunn/vim-emoji'
+
+[[plugins]]
+repo = 'rhysd/github-complete.vim'
+hook_add = '''
+  set omnifunc=github_complete#complete
+'''
