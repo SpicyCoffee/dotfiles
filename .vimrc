@@ -51,6 +51,7 @@ if has('mouse')
 endif
 
 " arrange paste from clipboard
+set clipboard=unnamed,autoselect
 if &term =~ "xterm"
   let &t_SI .= "\e[?2004h"
   let &t_EI .= "\e[?2004l"
