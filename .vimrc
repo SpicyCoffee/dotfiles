@@ -6,7 +6,7 @@ set directory=~/.vim/swp  " directory to save swp files
 
 " color scheme
 colorscheme iceberg
-syntax on
+syntax enable
 
 set expandtab  " convert tab to spaces
 set tabstop=2  " tab width
