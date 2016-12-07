@@ -126,3 +126,5 @@ HOMEBREW_CASK_OPTS="--appdir=/Applications"
 ### Alias ###
 alias cl='clear'
 alias be='bundle exec'
+alias ls='ls -GF'
+alias gls='gls --color'
