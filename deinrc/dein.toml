@@ -5,15 +5,6 @@ repo = 'Shougo/dein.vim'
 [[plugins]]
 repo = 'tomtom/tcomment_vim'
 
-# color scheme 'hybrid'
-[[plugins]]
-repo = 'w0ng/vim-hybrid'
-hook_add = '''
-  set background=dark
-  colorscheme hybrid
-  syntax enable
-'''
-
 # snippet
 [[plugins]]
 repo = 'Shougo/neosnippet'

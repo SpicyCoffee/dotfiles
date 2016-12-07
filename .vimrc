@@ -4,6 +4,10 @@ set fileencoding=utf-8
 
 set directory=~/.vim/swp  " directory to save swp files
 
+" color scheme
+colorscheme iceberg
+syntax on
+
 set expandtab  " convert tab to spaces
 set tabstop=2  " tab width
 set softtabstop=2 " spaces cursor moves at once
