@@ -118,8 +118,11 @@ zplug load --verbose
 
 
 ### PATH ###
-export PATH=/usr/local/bin:$PATH
-export PATH=$HOME/.nodebrew/current/bin:$PATH
+export PATH
+PATH=/usr/local/bin:$PATH
+PATH=$HOME/.rbenv/bin:$PATH
+PATH=$HOME/.nodebrew/current/bin:$PATH
+typeset -U path PATH
 HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 
