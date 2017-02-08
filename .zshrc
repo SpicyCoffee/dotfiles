@@ -117,17 +117,22 @@ fi
 zplug load --verbose
 
 
+eval "$(rbenv init -)"
+
 ### PATH ###
 export PATH
 PATH=/usr/local/bin:$PATH
+PATH=/usr/local/opt/mysql@5.6/bin:$PATH
 PATH=$HOME/.rbenv/bin:$PATH
+PATH=$HOME/.plenv/bin:$PATH
 PATH=$HOME/.nodebrew/current/bin:$PATH
 typeset -U path PATH
 HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
-
 ### Alias ###
 alias cl='clear'
 alias be='bundle exec'
+alias rbe='rbenv exec'
+alias rbebe='rbenv exec bundle exec'
 alias ls='ls -GF'
 alias gls='gls --color'
