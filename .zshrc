@@ -117,8 +117,6 @@ fi
 zplug load --verbose
 
 
-eval "$(rbenv init -)"
-
 ### PATH ###
 export PATH
 PATH=/usr/local/bin:$PATH
@@ -126,6 +124,7 @@ PATH=/usr/local/opt/mysql@5.6/bin:$PATH
 PATH=$HOME/.rbenv/bin:$PATH
 PATH=$HOME/.plenv/bin:$PATH
 PATH=$HOME/.nodebrew/current/bin:$PATH
+eval "$(rbenv init -)"
 typeset -U path PATH
 HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
