@@ -9,7 +9,8 @@
   st = status
   br = branch
   co = checkout
-  cm = commit
+  cm = commit --allow-empty
+  cp = cherry-pick
   df = diff
   dfw = diff --color-words --word-diff-regex='\\w+|[^[:space:]]'
   gr = log --graph --date=short --pretty=\"format:%C(yellow)%h %C(cyan)%ad %C(green)%an%Creset%x09%s %C(red)%d%Creset\"
