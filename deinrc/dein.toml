@@ -100,3 +100,45 @@ repo = 'rhysd/github-complete.vim'
 hook_add = '''
   set omnifunc=github_complete#complete
 '''
+
+# vim-tags
+[[plugins]]
+repo = 'szw/vim-tags'
+hook_add = '''
+  nnoremap <C-]> g<C-]>
+'''
+
+# ctrlp
+[[plugins]]
+repo = 'ctrlpvim/ctrlp.vim'
+hook_add = '''
+  let g:ctrlp_match_window = 'order:ttb,min:20,max:20,results:100'
+  let g:ctrlp_show_hidden = 1
+  let g:ctrlp_types = ['fil']
+  let g:ctrlp_extensions = ['funky', 'commandline']
+'''
+
+[[plugins]]
+repo = 'tacahiroy/ctrlp-funky'
+depends = ['ctrlp']
+hook_add = '''
+  command! CtrlPCommandLine call ctrlp#init(ctrlp#commandline#id())
+  let g:ctrlp_funky_matchtype = 'path'
+'''
+
+[[plugins]]
+repo = 'suy/vim-ctrlp-commandline'
+depends = ['ctrlp']
+
+# fugitive
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+
+# coffee-script
+[[plugins]]
+repo = 'kchmck/vim-coffee-script'
+  hook_add = '''
+  au BufRead,BufNewFile,BufReadPre *.coffee set filetype=coffee
+  autocmd FileType coffee setlocal sw=2 sts=2 ts=2 et
+  nnoremap <silent> <C-C> :CoffeeCompile vert <CR><C-w>h
+'''

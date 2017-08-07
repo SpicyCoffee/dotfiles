@@ -7,6 +7,8 @@ set directory=~/.vim/swp  " directory to save swp files
 " color scheme
 colorscheme iceberg
 syntax enable
+au BufRead,BufNewFile *.scss set filetype=sass
+au BufRead,BufNewFile *.schema set filetype=ruby
 
 set expandtab  " convert tab to spaces
 set tabstop=2  " tab width
@@ -84,11 +86,20 @@ nnoremap sL <C-w>L
 nnoremap sH <C-w>H
 nnoremap ss :<C-u>sp<CR>
 nnoremap sv :<C-u>vs<CR>
+noremap <C-j> <esc>
+noremap! <C-j> <esc>
+noremap <S-h> ^
+noremap <S-l> $
+inoremap <C-f> <Right>
+inoremap <C-b> <Left>
+inoremap <C-p> <Up>
+inoremap <C-n> <Down>
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+inoremap <C-d> <Del>
 " for US keyboard
 nnoremap ; :
-noremap! ¥ \
-noremap! \ ¥
-
+nnoremap : ;
 
 " minor change for colorscheme
 autocmd VimEnter,Colorscheme * hi Visual ctermfg=0 guifg=Black ctermbg=11 guibg=Yellow
@@ -165,13 +176,21 @@ nmap     t [Tag]
 
 " Tab jump
 for n in range(1, 9)
-  execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
+  execute 'nnoremap <silent> [Tag]'.n ':<C-u>tabnext'.n.'<CR>'
 endfor
 " tc create newtab
-map <silent> [Tag]c :tablast <bar> tabnew<CR>
+map <silent> [Tag]c ;tablast <bar> tabnew<CR>
 " tx cloase tab
-map <silent> [Tag]x :tabclose<CR>
+map <silent> [Tag]x ;tabclose<CR>
 " tn move to next tab
-map <silent> [Tag]n :tabnext<CR>
+map <silent> [Tag]n ;tabnext<CR>
 " tp move to previous tab
-map <silent> [Tag]p :tabprevious<CR>
+map <silent> [Tag]p ;tabprevious<CR>
+
+" for :TagsGenerate
+let g:vim_tags_project_tags_command = "/opt/brew/Cellar/ctags/5.8_1/bin/ctags -f tags -R . 2>/dev/null"
+let g:vim_tags_gems_tags_command = "/opt/brew/Cellar/ctags/5.8_1/bin/ctags -R -f .Gemfile.lock.tags `bundle show --paths` 2>/dev/null"
+
+" tag jump
+nnoremap <C-t> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
+nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>

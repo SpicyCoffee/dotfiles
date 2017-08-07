@@ -1,3 +1,4 @@
+setopt nonomatch
 ### History ###
 HISTFILE=~/.zsh_history	 # file saved history
 HISTSIZE=10000  # the number of histories on memory
