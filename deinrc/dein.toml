@@ -65,12 +65,14 @@ hook_add = '''
 [[plugins]]
 repo = 'scrooloose/syntastic'
 hook_add = '''
-  let g:syntastic_enable_signs = 1  " display '>>' error line
+  set statusline+=%#warningmsg#
+  set statusline+=%{SyntasticStatuslineFlag()}
+  set statusline+=%*
+
   let g:syntastic_always_populate_loc_list = 1  " stop conflict with other plugins
   let g:syntastic_auto_loc_list = 0  " hide error list
   let g:syntastic_check_on_open = 1  " check syntax when a file is opend
-  let g:syntastic_check_on_wq = 1    " check syntax when ':wq'
-  let g:syntastic_mode_map = { 'mode': 'passive' }
+  let g:syntastic_check_on_wq = 0    " check syntax when ':wq'
 '''
 
 # operation about surrounding symbol
@@ -137,8 +139,35 @@ repo = 'tpope/vim-fugitive'
 # coffee-script
 [[plugins]]
 repo = 'kchmck/vim-coffee-script'
-  hook_add = '''
+hook_add = '''
   au BufRead,BufNewFile,BufReadPre *.coffee set filetype=coffee
   autocmd FileType coffee setlocal sw=2 sts=2 ts=2 et
   nnoremap <silent> <C-C> :CoffeeCompile vert <CR><C-w>h
 '''
+
+# syntax highlight in Ruby's heredoc
+[[plugins]]
+repo = 'joker1007/vim-ruby-heredoc-syntax'
+# Add syntax rules
+hook_add = '''
+  let g:ruby_heredoc_syntax_filetypes = {
+    \"sql" : {
+    \  "start" : "SQL",
+    \ },
+  \}
+'''
+
+# markdown editor
+[[plugins]]
+repo = 'kannokanno/previm'
+hook_add = '''
+  let g:previm_open_cmd = 'open -a Google\ Chrome'
+  augroup PrevimSettings
+    autocmd!
+    autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
+  augroup END
+'''
+
+# jsonnet filetype plugin
+[[plugins]]
+repo = 'google/jsonnet'

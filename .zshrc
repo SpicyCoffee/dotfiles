@@ -1,4 +1,18 @@
 setopt nonomatch
+
+### PATH, ENV ###
+export PATH
+typeset -U path PATH
+source ~/.cpad2/profile
+PATH=$(brew --prefix)/bin:$PATH
+
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+export LESSOPEN='| src-hilite-lesspipe.sh %s'
+export LESS='-iMRX'
+
 ### History ###
 HISTFILE=~/.zsh_history	 # file saved history
 HISTSIZE=10000  # the number of histories on memory
@@ -88,7 +102,7 @@ function get-branch-status {
 
 
 ### for zplug ###
-export ZPLUG_HOME=/usr/local/opt/zplug
+export ZPLUG_HOME=$(brew --prefix)/opt/zplug
 source $ZPLUG_HOME/init.zsh
 
 ### Define plugins
@@ -118,21 +132,30 @@ fi
 zplug load --verbose
 
 
-### PATH ###
-export PATH
-PATH=/usr/local/bin:$PATH
-PATH=/usr/local/opt/mysql@5.6/bin:$PATH
-PATH=$HOME/.rbenv/bin:$PATH
-PATH=$HOME/.plenv/bin:$PATH
-PATH=$HOME/.nodebrew/current/bin:$PATH
-eval "$(rbenv init -)"
-typeset -U path PATH
-HOMEBREW_CASK_OPTS="--appdir=/Applications"
+### Color man
+man() {
+  env \
+    LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+    LESS_TERMCAP_md=$(printf "\e[1;31m") \
+    LESS_TERMCAP_me=$(printf "\e[0m") \
+    LESS_TERMCAP_se=$(printf "\e[0m") \
+    LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+    LESS_TERMCAP_ue=$(printf "\e[0m") \
+    LESS_TERMCAP_us=$(printf "\e[1;32m") \
+    man "$@"
+}
+
 
 ### Alias ###
 alias cl='clear'
+alias ll='ls -l'
+alias la='ls -la'
 alias be='bundle exec'
 alias rbe='rbenv exec'
 alias rbebe='rbenv exec bundle exec'
 alias ls='ls -GF'
 alias gls='gls --color'
+alias git='hub'
+alias bric='envchain bricolage bundle exec bricolage'
+
+source ~/.zshrc_local

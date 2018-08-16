@@ -4,11 +4,21 @@ set fileencoding=utf-8
 
 set directory=~/.vim/swp  " directory to save swp files
 
+" change cursor color depending on IME usage
+if has('multi_byte_ime')
+  highlight Cursor guifg=#000d18 guibg=#8faf9f gui=bold
+  highlight CursorIM guifg=NONE guibg=#ecbcbc
+endif
+
 " color scheme
 colorscheme iceberg
 syntax enable
 au BufRead,BufNewFile *.scss set filetype=sass
 au BufRead,BufNewFile *.schema set filetype=ruby
+au BufRead,BufNewFile *.iam set filetype=ruby
+au BufRead,BufNewFile *.sql.job set filetype=mysql
+au BufRead,BufNewFile *tsx set filetype=javascript
+au BufRead,BufNewFile *sonnet set filetype=javascript
 
 set expandtab  " convert tab to spaces
 set tabstop=2  " tab width
@@ -86,8 +96,7 @@ nnoremap sL <C-w>L
 nnoremap sH <C-w>H
 nnoremap ss :<C-u>sp<CR>
 nnoremap sv :<C-u>vs<CR>
-noremap <C-j> <esc>
-noremap! <C-j> <esc>
+inoremap <silent> jk <esc>
 noremap <S-h> ^
 noremap <S-l> $
 inoremap <C-f> <Right>
