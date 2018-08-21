@@ -2,6 +2,17 @@ set encoding=utf-8
 scriptencoding utf-8
 set fileencoding=utf-8
 
+" syntastic ----------------------
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1  " stop conflict with other plugins
+let g:syntastic_auto_loc_list = 0  " hide error list
+let g:syntastic_check_on_open = 1  " check syntax when a file is opend
+let g:syntastic_check_on_wq = 0    " check syntax when ':wq'
+" --------------------------------
+
 set directory=~/.vim/swp  " directory to save swp files
 
 " change cursor color depending on IME usage
