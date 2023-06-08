@@ -61,10 +61,6 @@ hook_add = '''
   nnoremap <silent><C-e> :NERDTreeToggle<CR>
 '''
 
-# check syntax
-[[plugins]]
-repo = 'scrooloose/syntastic'
-
 # operation about surrounding symbol
 [[plugins]]
 repo = 'tpope/vim-surround'
@@ -161,3 +157,7 @@ hook_add = '''
 # jsonnet filetype plugin
 [[plugins]]
 repo = 'google/jsonnet'
+
+# for TypeScript
+[[plugins]]
+repo = 'leafgarland/typescript-vim'

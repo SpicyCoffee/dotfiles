@@ -2,17 +2,6 @@ set encoding=utf-8
 scriptencoding utf-8
 set fileencoding=utf-8
 
-" syntastic ----------------------
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1  " stop conflict with other plugins
-let g:syntastic_auto_loc_list = 0  " hide error list
-let g:syntastic_check_on_open = 1  " check syntax when a file is opend
-let g:syntastic_check_on_wq = 0    " check syntax when ':wq'
-" --------------------------------
-
 set directory=~/.vim/swp  " directory to save swp files
 
 " change cursor color depending on IME usage
@@ -21,22 +10,12 @@ if has('multi_byte_ime')
   highlight CursorIM guifg=NONE guibg=#ecbcbc
 endif
 
-" color scheme
-colorscheme iceberg
-syntax enable
-au BufRead,BufNewFile *.scss set filetype=sass
-au BufRead,BufNewFile *.schema set filetype=ruby
-au BufRead,BufNewFile *.iam set filetype=ruby
-au BufRead,BufNewFile *.sql.job set filetype=mysql
-au BufRead,BufNewFile *tsx set filetype=javascript
-au BufRead,BufNewFile *sonnet set filetype=javascript
-
 set expandtab  " convert tab to spaces
 set tabstop=2  " tab width
 set softtabstop=2 " spaces cursor moves at once
 set autoindent
 set smartindent  " auto indent according to syntax
-set shiftwidth=2 " indent width for smart indent
+set shiftwidth=2" indent width for smart indent
 
 set incsearch
 set ignorecase  " treat equally uppercase and lowercase for search
@@ -107,7 +86,8 @@ nnoremap sL <C-w>L
 nnoremap sH <C-w>H
 nnoremap ss :<C-u>sp<CR>
 nnoremap sv :<C-u>vs<CR>
-inoremap <silent> jk <esc>
+inoremap <C-j><C-k> <esc>
+inoremap <C-c> <esc>
 noremap <S-h> ^
 noremap <S-l> $
 inoremap <C-f> <Right>
@@ -117,15 +97,10 @@ inoremap <C-n> <Down>
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
 inoremap <C-d> <Del>
+
 " for US keyboard
 nnoremap ; :
 nnoremap : ;
-
-" minor change for colorscheme
-autocmd VimEnter,Colorscheme * hi Visual ctermfg=0 guifg=Black ctermbg=11 guibg=Yellow
-autocmd VimEnter,Colorscheme * hi VisualNos ctermfg=0 guifg=Black ctermbg=11 guibg=Yellow
-autocmd VimEnter,Colorscheme * hi Search ctermfg=0 guifg=Black ctermbg=11 guibg=Yellow
-
 
 """"" Dein
 let s:dein_dir = expand('~/.vim/dein')  " directory to install plugins
@@ -159,7 +134,6 @@ endif
 if dein#check_install()
   call dein#install()
 endif
-
 
 """"" Tab function config
 " http://qiita.com/wadako111/items/755e753677dd72d8036d
@@ -212,5 +186,21 @@ let g:vim_tags_project_tags_command = "/opt/brew/Cellar/ctags/5.8_1/bin/ctags -f
 let g:vim_tags_gems_tags_command = "/opt/brew/Cellar/ctags/5.8_1/bin/ctags -R -f .Gemfile.lock.tags `bundle show --paths` 2>/dev/null"
 
 " tag jump
-nnoremap <C-t> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
-nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
+" nnoremap <C-t> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
+" nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
+
+" Color scheme
+colorscheme iceberg
+syntax enable
+au BufRead,BufNewFile *.scss set filetype=sass
+au BufRead,BufNewFile *.schema set filetype=ruby
+au BufRead,BufNewFile *.iam set filetype=ruby
+au BufRead,BufNewFile *.sql.job set filetype=mysql
+au BufRead,BufNewFile *tsx set filetype=javascript
+au BufRead,BufNewFile *sonnet set filetype=javascript
+
+" minor change for colorscheme
+autocmd VimEnter,Colorscheme * hi Visual ctermfg=0 guifg=Black ctermbg=11 guibg=Yellow
+autocmd VimEnter,Colorscheme * hi VisualNos ctermfg=0 guifg=Black ctermbg=11 guibg=Yellow
+autocmd VimEnter,Colorscheme * hi Search ctermfg=0 guifg=Black ctermbg=11 guibg=Yellow
+

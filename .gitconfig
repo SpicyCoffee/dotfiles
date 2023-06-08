@@ -1,16 +1,24 @@
-[core]
-  editor = vim
+[merge "mergepbx"]
+	name = Xcode project files merger
+	driver = mergepbx %O %A %B
+	note = auto-generated configuration by cpad2 upgrade
 
 [user]
-  name  = SpicyCoffee
-  email = 7toidrdr.6400@gmail.com
+	name = kohei-arai
+	email = kohei-arai@cookpad.com
+
+[core]
+	editor = vim
+		excludesfile = /Users/kohei-arai/.gitignore_global
 
 [alias]
-  st = status
-  br = branch
-  co = checkout
-  cm = commit --allow-empty
-  cp = cherry-pick
-  df = diff
-  dfw = diff --color-words --word-diff-regex='\\w+|[^[:space:]]'
-  gr = log --graph --date=short --pretty=\"format:%C(yellow)%h %C(cyan)%ad %C(green)%an%Creset%x09%s %C(red)%d%Creset\"
+	st = status
+	br = branch
+	co = checkout
+	cm = commit --allow-empty
+	cp = cherry-pick
+	df = diff
+	dfw = diff --color-words --word-diff-regex='\\w+|[^[:space:]]'
+	gr = log --graph --date=short --pretty=\"format:%C(yellow)%h %C(cyan)%ad %C(green)%an%Creset%x09%s %C(red)%d%Creset\"
+	shpr = !"f() { git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1; }; f"
+	oppr = "!f() { hub browse -- `git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1 | cut -f5 -d' ' | sed -e 's%#%pull/%'`; }; f"
