@@ -10,8 +10,11 @@ export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH=$PATH:~/.rd/bin
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 
-export LESSOPEN='| /opt/brew/bin/src-hilite-lesspipe.sh %s'
+export LESSOPEN="| src-hilite-lesspipe.sh %s"
 export LESS='-iMRX'
 
 ### History ###
@@ -109,17 +112,8 @@ source $ZPLUG_HOME/init.zsh
 ### Define plugins
   zplug "b4b4r07/enhancd", use:init.sh  # enhance moving on CL
   zplug "zsh-users/zsh-autosuggestions"  # suggest commands
-  zplug "zsh-users/zsh-syntax-highlighting", nice:10  # syntax hilight
+  zplug "zsh-users/zsh-syntax-highlighting", defer:3  # syntax hilight
   zplug "zsh-users/zsh-completions"  # completion of command input
-
-  # emoji
-  zplug "stedolan/jq", \
-    from:gh-r, \
-    as:command, \
-    rename-to:jq
-  zplug "b4b4r07/emoji-cli", \
-      on:"stedolan/jq"
-  zplug "mrowa44/emojify"
 ###
 
 # Install them
@@ -130,7 +124,7 @@ if ! zplug check --verbose; then
   fi
 fi
 
-zplug load --verbose
+zplug load # --verbose
 
 
 ### Color man
@@ -146,150 +140,16 @@ man() {
     man "$@"
 }
 
-
-
-### Prompt ###
-autoload -U colors; colors
-setopt prompt_subst
-
-# general user
-prompt="%F{cyan}[%n@%D{%m/%d %T}]%f "
-prompt2="%{${fg[cyan]}%}%_> %{${reset_color}%}"
-rprompt="%{${fg[magenta]}%}[%~]%{${reset_color}%}"
-sprompt="%{${fg[yellow]}%}%r is correct? [Yes, No, Abort, Edit]:%{${reset_color}%}"
-
-# root user
-if [ ${UID} -eq 0 ]; then
-prompt="%B%U${prompt}%u%b"
-  prompt2="%B%U${prompt2}%u%b"
-  rprompt="%B%U${rprompt}%u%b"
-  sprompt="%B%U${sprompt}%u%b"
-fi
-
-PROMPT=$prompt    # set configures to prompt
-PROMPT2=$prompt2  # second prompt
-RPROMPT=$'`branch-status-check` ${rprompt}'  # right prompt (for git branch name)
-SPROMPT=$sprompt  # prompt for spell check
-
-# prompt when ssh login
-[ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
-  PROMPT="%{${fg[white]}%}${HOST%%.*} ${PROMPT}"
-;
-
-
-### display git branch name ###
-function branch-status-check {
-  local prefix branchname suffix
-
-  # return if in the '.git'
-  if [[ "$PWD" =~ '/\.git(/.*)?$' ]]; then
-    return
-  fi
-
-  branchname=`get-branch-name`
-  if [[ -z $branchname ]]; then
-    return
-  fi
-
-  prefix=`get-branch-status`
-  suffix='%{'${reset_color}'%}'
-  echo ${prefix}"(${branchname})"${suffix}
-}
-
-function get-branch-name {
-  echo `git rev-parse --abbrev-ref HEAD 2> /dev/null`
-}
-
-function get-branch-status {
-  local res color
-  output=`git status --short 2> /dev/null`
-  if [ -z "$output" ]; then
-    res=':'  # Clean
-    color='%{'${fg[green]}'%}'
-  elif [[ $output =~ "[\n]?\?\? " ]]; then
-    res='?:' # Untracked
-    color='%{'${fg[yellow]}'%}'
-  elif [[ $output =~ "[\n]? M " ]]; then
-    res='M:' # Modified
-    color='%{'${fg[red]}'%}'
-  else
-    res='A:' # Added to commit
-    color='%{'${fg[cyan]}'%}'
-  fi
-  # echo ${color}${res}'%{'${reset_color}'%}'
-  echo ${color}
-}
-
-
-### for zplug ###
-export ZPLUG_HOME=$(brew --prefix)/opt/zplug
-source $ZPLUG_HOME/init.zsh
-
-### Define plugins
-  zplug "b4b4r07/enhancd", use:init.sh  # enhance moving on CL
-  zplug "zsh-users/zsh-autosuggestions"  # suggest commands
-  zplug "zsh-users/zsh-syntax-highlighting", nice:10  # syntax hilight
-  zplug "zsh-users/zsh-completions"  # completion of command input
-
-  # emoji
-  zplug "stedolan/jq", \
-    from:gh-r, \
-    as:command, \
-    rename-to:jq
-  zplug "b4b4r07/emoji-cli", \
-      on:"stedolan/jq"
-  zplug "mrowa44/emojify"
-###
-
-# Install them
-if ! zplug check --verbose; then
-  printf 'Install? [y/N]: '
-  if read -q; then
-    echo; zplug install
-  fi
-fi
-
-zplug load --verbose
-
-
-### Color man
-man() {
-  env \
-    LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-    LESS_TERMCAP_md=$(printf "\e[1;31m") \
-    LESS_TERMCAP_me=$(printf "\e[0m") \
-    LESS_TERMCAP_se=$(printf "\e[0m") \
-    LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
-    LESS_TERMCAP_ue=$(printf "\e[0m") \
-    LESS_TERMCAP_us=$(printf "\e[1;32m") \
-    man "$@"
-}
-
-
 ### Alias ###
 alias cl='clear'
+alias ls='ls -GF'
 alias ll='ls -l'
 alias la='ls -la'
-alias be='bundle exec'
-alias rbe='rbenv exec'
-alias rbebe='rbenv exec bundle exec'
-alias ls='ls -GF'
-alias gls='gls --color'
-# alias git='hub'
-alias bric='envchain bricolage bundle exec bricolage'
-
-### Alias ###
-alias cl='clear'
-alias ll='ls -l'
-alias la='ls -la'
-alias be='bundle exec'
-alias rbe='rbenv exec'
-alias rbebe='rbenv exec bundle exec'
-alias ls='ls -GF'
-alias gls='gls --color'
-# alias git='hub'
-alias bric='envchain bricolage bundle exec bricolage'
 
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 source ~/.zshrc_local
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/kohei-arai/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)

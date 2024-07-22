@@ -9,7 +9,6 @@
 
 [core]
 	editor = vim
-		excludesfile = /Users/kohei-arai/.gitignore_global
 
 [alias]
 	st = status
@@ -22,3 +21,6 @@
 	gr = log --graph --date=short --pretty=\"format:%C(yellow)%h %C(cyan)%ad %C(green)%an%Creset%x09%s %C(red)%d%Creset\"
 	shpr = !"f() { git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1; }; f"
 	oppr = "!f() { hub browse -- `git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1 | cut -f5 -d' ' | sed -e 's%#%pull/%'`; }; f"
+
+[includeIf "gitdir:~/workspace/github/"]
+  path = ~/.gitconfig_github

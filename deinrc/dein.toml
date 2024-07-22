@@ -161,3 +161,7 @@ repo = 'google/jsonnet'
 # for TypeScript
 [[plugins]]
 repo = 'leafgarland/typescript-vim'
+
+# colof scheme(iceberg)
+[[plugins]]
+repo = 'cocopon/iceberg.vim'
